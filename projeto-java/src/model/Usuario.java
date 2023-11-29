@@ -17,8 +17,13 @@ public class Usuario {
     public String getNome() {
         return nome;
     }
-
     public String getCpf() {
         return cpf;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getTelefone() {
+        return telefone;
     }
 }

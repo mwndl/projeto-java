@@ -24,6 +24,18 @@ public class Livro {
         return autor;
     }
 
+    public int getAnoPublicacao() {
+        return anoPublicacao;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public int getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
     public static interface UsuarioDAO {
         void cadastrarUsuario(Usuario usuario);
         void listarUsuarios();

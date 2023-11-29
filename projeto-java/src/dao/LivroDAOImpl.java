@@ -1,22 +1,46 @@
 package dao;
 
 import model.Livro;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LivroDAOImpl implements LivroDAO {
-    private List<Livro> livros = new ArrayList<>();
 
     @Override
     public void cadastrarLivro(Livro livro) {
-        livros.add(livro);
-        System.out.println("Livro cadastrado com sucesso!");
+        try (Connection connection = dao.ConnectionFactory.getConnection()) {
+
+            String sql = "INSERT INTO livros (titulo, autor, ano_publicacao, genero, quantidade_disponivel) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, livro.getTitulo());
+                preparedStatement.setString(2, livro.getAutor());
+                preparedStatement.setInt(3, livro.getAnoPublicacao());
+                preparedStatement.setString(4, livro.getGenero());
+                preparedStatement.setInt(5, livro.getQuantidadeDisponivel());
+
+                preparedStatement.executeUpdate();
+                System.out.println("Livro cadastrado com sucesso!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void listarLivros() {
-        for (Livro livro : livros) {
-            System.out.println(livro.getTitulo() + " - " + livro.getAutor());
+        try (Connection connection = dao.ConnectionFactory.getConnection()) {
+            String sql = "SELECT titulo, autor FROM livros";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    String titulo = resultSet.getString("titulo");
+                    String autor = resultSet.getString("autor");
+                    System.out.println(titulo + " - " + autor);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
