@@ -30,6 +30,6 @@ show tables
 describe livros
 describe usuarios
 drop table usuarios
-select * from usuarios;
+select * from livros;
 UPDATE livros SET genero = 'Romance'
 WHERE id_livro = 1;

@@ -10,6 +10,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
     @Override
     public void cadastrarUsuario(Usuario usuario) {
         usuarios.add(usuario);
+     
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
